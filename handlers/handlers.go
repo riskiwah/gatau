@@ -22,29 +22,20 @@ func commitHash() (string, error) {
 }
 
 // exported ShowToIndex
-func ShowCommitHash(c *gin.Context) {
+func ShowToIndex(c *gin.Context) {
+	hostname, err := os.Hostname()
 	commit, err := commitHash()
 	if err != nil {
 		panic(err)
 	}
 	c.HTML(http.StatusOK, "index.html", gin.H{
 		"commit": commit,
+		"hostname" : hostname,
 	})
 
 	// fmt.Printf("Commit : %s\n", commit)
 	// c.JSON(200, commit)
 
-}
-
-// exported ShowHostname
-func ShowHostname(c *gin.Context) {
-	hostname, err := os.Hostname()
-	if err != nil {
-		panic(err)
-	}
-	c.HTML(http.StatusOK, "index.html", gin.H{
-		"hostname": hostname,
-	})
 }
 
 // some notes :
