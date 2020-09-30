@@ -1,0 +1,21 @@
+name: gatau CI
+
+on:
+    push:
+        branches: [ master ]
+    pull_reqtuest:
+        branches: [ master ]
+
+jobs:
+    ci:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: action/checkout@v2
+        - name: Build Container Image
+          run: docker build -t ${{ secrets.C_USER }}/gatau:${{ github.sha }} .
+        - name: Login Dockerhub
+          run: docker login -u ${{ secrets.C_USER }} -p ${{ secrets.C_PASS }}
+        - name: Push Dockerhub
+          run: docker push ${{ secrets.C_USER }}/gatau:${{ github.sha }}
+
+    
