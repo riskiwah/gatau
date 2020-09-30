@@ -10,7 +10,7 @@ jobs:
     ci:
         runs-on: ubuntu-latest
         steps:
-        - uses: action/checkout@v2
+        - uses: actions/checkout@v2
         - name: Build Container Image
           run: docker build -t ${{ secrets.C_USER }}/gatau:${{ github.sha }} .
         - name: Login Dockerhub
