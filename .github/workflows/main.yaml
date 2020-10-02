@@ -40,13 +40,13 @@ jobs:
           run: |
            cd deployment/stag
            kustomize edit set image riskiwah/gatau=${{ secrets.C_USER }}/gatau:${{ github.sha }}
-           cat kustomize.yaml
+           cat kustomization.yaml
         
         - name: Commit
           run: |
             git config --local user.email "action@github.com"
             git config --local user.name "Github Action"
-            git commit -am "first test"
+            git commit -am "second test"
         
         - name: Push
           uses: ad-m/github-push-action@master
