@@ -7,3 +7,5 @@ resources:
 namespace: staging
 images:
 - name: riskiwah/gatau
+  newName: riskiwah/gatau
+  newTag: 17916b9487e2bd5809bdf34050a8dc07420672ab
