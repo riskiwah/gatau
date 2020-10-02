@@ -1,4 +1,4 @@
-name: gatau CI
+name: gatau CI n CD
 
 on:
     push:
@@ -46,7 +46,7 @@ jobs:
           run: |
             git config --local user.email "action@github.com"
             git config --local user.name "Github Action"
-            git commit -am "second test"
+            git commit -am "[GitOps] Update image staging : ${{ github.sha }}"
         
         - name: Push
           uses: ad-m/github-push-action@master
