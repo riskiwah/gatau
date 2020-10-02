@@ -1,1 +1,5 @@
 # this for ns-stag
+apiVersion: v1
+kind: Namespace
+metadata:
+    name: staging

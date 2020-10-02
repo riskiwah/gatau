@@ -1,1 +1,19 @@
 # this for dep-stag
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gatau-dep-stag
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: gatau
+    spec:
+      containers:
+      - name: name
+        image: riskiwah/gatau:fd5a1f7eac6221bc16817d07090a763d8de4add2
+        imagePullPolicy: Always
+        ports:
+            - containerPort: 8080
+              name: http

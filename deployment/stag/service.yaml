@@ -1,1 +1,13 @@
 # this for svc-stag
+kind: Service
+apiVersion: v1
+metadata:
+  name: gatau-svc-stag
+spec:
+  selector:
+    app: gatau
+  type: ClusterIP
+  ports:
+  - name: http
+    port: 8080
+    targetPort:  8080
