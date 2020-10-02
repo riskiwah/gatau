@@ -8,14 +8,49 @@ on:
 
 jobs:
     ci:
+        name: ci
         runs-on: ubuntu-latest
         steps:
-        - uses: actions/checkout@v2
+        - name: Checkout
+          uses: actions/checkout@v2
+
         - name: Build Container Image
           run: docker build -t ${{ secrets.C_USER }}/gatau:${{ github.sha }} .
+
         - name: Login Dockerhub
           run: docker login -u ${{ secrets.C_USER }} -p ${{ secrets.C_PASS }}
+
         - name: Push Dockerhub
           run: docker push ${{ secrets.C_USER }}/gatau:${{ github.sha }}
+    
+    cd:
+        name: cd
+        runs-on: ubuntu-latest
+        needs: ci
+        steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+        
+        - name: Kustomize
+          uses: imranismail/setup-kustomize@v1
+          with:
+            kustomize-version: "3.6.1"
+          
+        - name: Update resources
+          run: |
+           cd deployment/stag
+           kustomize edit set image riskiwah/gatau=${{ secrets.C_USER }}/gatau:${{ github.sha }}
+           cat kustomize.yaml
+        
+        - name: Commit
+          run: |
+            git config --local user.email "action@github.com"
+            git config --local user.name "Github Action"
+            git commit -am "first test"
+        
+        - name: Push
+          uses: ad-m/github-push-action@master
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
 
     

@@ -4,6 +4,9 @@ kind: Deployment
 metadata:
   name: gatau-dep-stag
 spec:
+  selector:
+    matchLabels:
+      app: gatau
   replicas: 1
   template:
     metadata:
@@ -12,7 +15,7 @@ spec:
     spec:
       containers:
       - name: name
-        image: riskiwah/gatau:fd5a1f7eac6221bc16817d07090a763d8de4add2
+        image: riskiwah/gatau:eb51200e5ed36fd238f900004e3c84588a440028
         imagePullPolicy: Always
         ports:
             - containerPort: 8080
