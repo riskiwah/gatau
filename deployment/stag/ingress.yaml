@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: gatau-ingress-stag
+  namespace: staging
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: "test-selfsigned"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/ssl-passthrough: "true"
+spec:
+  rules:
+  - http:
+      paths:
+      - backend:
+          serviceName: gatau-svc-stag
+          servicePort: http
+    host: gatau.blah.local
+  tls:
+  - secretName: https-cert
+    hosts:                             
+    - gatau.blah.local
